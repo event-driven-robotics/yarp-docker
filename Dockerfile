@@ -9,20 +9,22 @@ ARG SOURCE_FOLDER=/usr/local/src
 
 RUN apt update
 
-RUN if [ $(echo "`lsb_release -sr` < $19.04" | bc -l) ] ; then \
-        wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - && \
-       apt-add-repository 'deb https://apt.kitware.com/ubuntu/ disco main' && \
-       apt update && \
-       apt install kitware-archive-keyring && \
-       apt-key --keyring /etc/apt/trusted.gpg del C1F34CDD40CD72DA ; \
-    fi
-
 RUN apt install -y \
     apt-transport-https \
     ca-certificates \
     gnupg \
     software-properties-common \
-    wget
+    wget \
+    bc \
+    lsb-core
+
+RUN if [ $(echo "`lsb_release -sr` < $19.04" | bc -l) ] ; then \
+       wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - ;\
+       apt-add-repository "deb https://apt.kitware.com/ubuntu/ `lsb_release -cs` main";\
+       apt update ;\
+       apt install kitware-archive-keyring; \
+       apt-key --keyring /etc/apt/trusted.gpg del C1F34CDD40CD72DA ; \
+    fi
 
 # Install useful packages
 RUN apt install -y \
@@ -30,8 +32,9 @@ RUN apt install -y \
         git \
         cmake \
         cmake-curses-gui \
-        lsb-release \
-        libssl-dev
+        libssl-dev \
+        iputils-ping \
+        iproute2
 
 #Install opencv
 RUN DEBIAN_FRONTEND=noninteractive apt install libopencv-dev -y
