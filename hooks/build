@@ -10,14 +10,15 @@ len=${#header[@]}
 while read software_version_line
 do
         # The new image tag will include the version of our software, prefixed to the os image we're currently building
-        IMAGE_TAG="${DOCKER_REPO}:v${software_version_line}-${DOCKER_TAG}"
         versions=($software_version_line)
+        IMAGE_TAG="${DOCKER_REPO}:v${versions[0]}"
+
 	args=""
 	for (( i=0; i<$len; i++ )); do
 		args=$(printf "%s%s %s=%s" "$args" "--build-arg" "${header[$i]}" "${versions[$i]} ")
 	done
 		
         echo "docker build $args -t ${IMAGE_TAG} ."
-        docker docker build $args -t ${IMAGE_TAG} .
+        docker build $args -t ${IMAGE_TAG} .
 done
 } < yarp_versions.txt
