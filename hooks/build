@@ -17,7 +17,7 @@ do
 		args=$(printf "%s%s %s=%s" "$args" "--build-arg" "${header[$i]}" "${versions[$i]} ")
 	done
 		
-        echo "docker build -f Dockerfile $args -t ${IMAGE_TAG} ../"
-        docker docker build . $args -t ${IMAGE_TAG} ../
+        echo "docker build $args -t ${IMAGE_TAG} ."
+        docker docker build $args -t ${IMAGE_TAG} .
 done
 } < yarp_versions.txt
