@@ -12,6 +12,6 @@ do
         IMAGE_TAG="${DOCKER_REPO}:v${versions[0]}"
 		
         echo "docker push ${IMAGE_TAG}"
-        # docker push ${IMAGE_TAG}
+        docker push ${IMAGE_TAG}
 done
 } < yarp_versions.txt
