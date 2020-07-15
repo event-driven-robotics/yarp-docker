@@ -80,7 +80,7 @@ RUN cd $SOURCE_FOLDER && \
     git checkout $vYCM_VERSION && \
     mkdir build && cd build && \
     cmake .. && \
-    make -j 8 install
+    make -j `nproc` install
 
 # Install YARP with GUIS and Python bindings
 RUN cd $SOURCE_FOLDER && \
@@ -93,7 +93,7 @@ RUN cd $SOURCE_FOLDER && \
           -DCREATE_PYTHON=ON \
           -DYARP_USE_PYTHON_VERSION=3 \
           .. &&\
-    make -j 8 install
+    make -j `nproc` install
 
 RUN PY_VER=`python3 --version | awk '{print $2}' | awk -F "." 'BEGIN { OFS = "." }{print $1,$2}'` && \
     ln -s /usr/local/lib/python3/dist-packages/*yarp* /usr/local/lib/python$PY_VER/dist-packages/
