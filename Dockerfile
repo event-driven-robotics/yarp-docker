@@ -1,11 +1,13 @@
-ARG FROM=ubuntu:bionic
+ARG UBUNTU_VERSION=bionic
 
-FROM $FROM
+FROM ubuntu:UBUNTU_VERSION
 
 ARG YARP_VERSION=3.2.1
 ARG YCM_VERSION=0.10.4
 ARG BUILD_TYPE=Debug
 ARG SOURCE_FOLDER=/usr/local/src
+
+ENV DEBIAN_FRONTEND noninteractive 
 
 RUN apt update
 
@@ -37,7 +39,7 @@ RUN apt install -y \
         iproute2
 
 #Install opencv
-RUN DEBIAN_FRONTEND=noninteractive apt install libopencv-dev -y
+RUN apt install libopencv-dev -y
 
 # Install yarp dependencies
 RUN apt install -y \
