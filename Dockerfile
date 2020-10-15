@@ -67,7 +67,9 @@ RUN apt install -y \
         swig -y \
 # Configure virtual environment for python
         python3-pip -y \
-        && rm -r /var/lib/apt/lists/*
+        && apt-get autoremove \
+        && apt-get clean \
+        && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
 RUN pip3 install \
     virtualenv \
