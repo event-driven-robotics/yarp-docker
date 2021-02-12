@@ -6,6 +6,7 @@ ARG YARP_VERSION=3.2.1
 ARG YCM_VERSION=0.10.4
 ARG BUILD_TYPE=Debug
 ARG SOURCE_FOLDER=/usr/local/src
+ARG OPENGL=0
 
 ENV DEBIAN_FRONTEND noninteractive 
 
@@ -26,8 +27,7 @@ RUN distro=`lsb_release -sr`; \
         wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - ;\
         apt-add-repository "deb https://apt.kitware.com/ubuntu/ `lsb_release -cs` main";\
         apt update ;\
-        apt install kitware-archive-keyring; \
-        apt-key --keyring /etc/apt/trusted.gpg del C1F34CDD40CD72DA ; \
+        
     fi
 
 # Install useful packages
