@@ -27,7 +27,6 @@ RUN distro=`lsb_release -sr`; \
         wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | apt-key add - ;\
         apt-add-repository "deb https://apt.kitware.com/ubuntu/ `lsb_release -cs` main";\
         apt update ;\
-        
     fi
 
 # Install useful packages
@@ -83,7 +82,7 @@ RUN echo 'source /usr/local/bin/virtualenvwrapper.sh' | cat - /root/.bashrc > te
 RUN cd $SOURCE_FOLDER && \
     git clone https://github.com/robotology/ycm.git && \
     cd ycm && \
-    git checkout $vYCM_VERSION && \
+    git checkout v$YCM_VERSION && \
     mkdir build && cd build && \
     cmake .. && \
     make -j `nproc` install
@@ -92,7 +91,7 @@ RUN cd $SOURCE_FOLDER && \
 RUN cd $SOURCE_FOLDER && \
     git clone https://github.com/robotology/yarp.git &&\
     cd yarp &&\
-    git checkout $vYARP_VERSION &&\
+    git checkout v$YARP_VERSION &&\
     mkdir build && cd build &&\
     cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DYARP_COMPILE_BINDINGS=ON \
